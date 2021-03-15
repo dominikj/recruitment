@@ -1,0 +1,6 @@
+// Line with EXPR keyword contains expression
+EXPR (a = 1 and b = 2) or (a = 20 and b =10)
+// Each line contains one record. Each number is one value of field in order: a,b,c,d,e,f,g,h
+1,2,3,4,5,6,7,8
+20,10,55,77,12,900,45,98
+1,5,3,8,5,2,2,1
