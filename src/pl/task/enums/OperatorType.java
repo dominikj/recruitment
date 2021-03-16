@@ -27,18 +27,18 @@ public enum OperatorType {
     private int precedence;
     private String symbol;
     private BiFunction<?, ?, Boolean> function;
-    private boolean logicOperator;
+    private boolean logicalOperator;
 
-    OperatorType(String symbol, int precedence, boolean logicOperator, BiFunction<?, ?, Boolean> function) {
+    OperatorType(String symbol, int precedence, boolean logicalOperator, BiFunction<?, ?, Boolean> function) {
         this.symbol = symbol;
         this.precedence = precedence;
         this.function = function;
-        this.logicOperator = logicOperator;
+        this.logicalOperator = logicalOperator;
     }
 
 
-    public boolean isLogicOperator() {
-        return logicOperator;
+    public boolean isLogicalOperator() {
+        return logicalOperator;
     }
 
     public String getSymbol() {
@@ -51,7 +51,7 @@ public enum OperatorType {
 
     public boolean apply(boolean op1, boolean op2) {
 
-        if (!isLogicOperator()) {
+        if (!isLogicalOperator()) {
             throw new IllegalArgumentException("Illegal arguments for " + getSymbol());
         }
 
@@ -60,7 +60,7 @@ public enum OperatorType {
 
     public boolean apply(int op1, int op2) {
 
-        if (isLogicOperator()) {
+        if (isLogicalOperator()) {
             throw new IllegalArgumentException("Illegal arguments for " + getSymbol());
         }
 

@@ -18,8 +18,8 @@ public class Operator extends Symbol {
         return true;
     }
 
-    public boolean isLogicOperator() {
-        return operatorType.isLogicOperator();
+    public boolean isLogicalOperator() {
+        return operatorType.isLogicalOperator();
     }
 
     public OperatorType getType() {

@@ -4,10 +4,7 @@ import pl.task.Util;
 import pl.task.enums.Field;
 import pl.task.enums.OperatorType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by dominik on 13.03.21.
@@ -18,7 +15,7 @@ public class ExpressionEvaluator {
     // Shunting Yard Algorithm - convert expression to Reverse Polish Notation
     public List<Symbol> convertExpressionToRPN(List<String> expression) {
 
-        Stack<Operator> operators = new Stack<>();
+        Deque<Operator> operators = new ArrayDeque<>();
         List<Symbol> expressionInRPN = new ArrayList<>();
 
         for (String symbol : expression) {
@@ -41,14 +38,14 @@ public class ExpressionEvaluator {
         }
 
         // Put all remaining operators into the output
-        while (!operators.empty()) {
+        while (!operators.isEmpty()) {
             expressionInRPN.add(operators.pop());
         }
 
         return expressionInRPN;
     }
 
-    private List<Symbol> processOperator(String symbol, Stack<Operator> operators) {
+    private List<Symbol> processOperator(String symbol, Deque<Operator> operators) {
 
         List<Symbol> expressionInRPN = new ArrayList<>();
 
@@ -74,7 +71,7 @@ public class ExpressionEvaluator {
             // Put all operators from stack with higher priority into the output and then push current processed operator on stack
         } else {
 
-            while (!operators.empty() && hasHigherPriority(operators.peek(), operator)) {
+            while (!operators.isEmpty() && hasHigherPriority(operators.peek(), operator)) {
 
                 expressionInRPN.add(operators.pop());
             }
@@ -88,7 +85,7 @@ public class ExpressionEvaluator {
 
     public boolean checkRecord(Map<Field, Integer> record, List<Symbol> expressionInRPN) {
 
-        Stack<Operand> operands = new Stack<>();
+        Deque<Operand> operands = new ArrayDeque<>();
 
         for (Symbol symbol : expressionInRPN) {
 
@@ -103,13 +100,13 @@ public class ExpressionEvaluator {
                 Operator operator = (Operator) symbol;
 
                 // A logic operators (and, or) can take only boolean operands.
-                if (operator.isLogicOperator()) {
+                if (operator.isLogicalOperator()) {
 
-                    operands.add(new Operand(operator.apply(operands.pop().getBoolean(), operands.pop().getBoolean())));
+                    operands.push(new Operand(operator.apply(operands.pop().getBoolean(), operands.pop().getBoolean())));
 
                 } else {
 
-                    operands.add(applyArithmeticOperands(operands.pop(), operands.pop(), operator, record));
+                    operands.push(applyArithmeticOperands(operands.pop(), operands.pop(), operator, record));
 
                 }
             }

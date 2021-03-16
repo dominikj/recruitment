@@ -4,8 +4,9 @@ import pl.task.evaluator.Operand;
 import pl.task.evaluator.Operator;
 import pl.task.evaluator.Symbol;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Created by dominik on 13.03.21.
@@ -15,7 +16,7 @@ public class Tree {
     private Node rootOfTree;
 
     public void buildTree(List<Symbol> expressionInRPN) {
-        Stack<Node> nodes = new Stack<>();
+        Deque<Node> nodes = new ArrayDeque<>();
 
         for (Symbol symbol : expressionInRPN) {
 
