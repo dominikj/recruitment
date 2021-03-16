@@ -1,7 +1,5 @@
 package pl.task.enums;
 
-import sun.plugin.dom.exception.InvalidStateException;
-
 import java.util.function.BiFunction;
 
 /**
@@ -18,10 +16,10 @@ public enum OperatorType {
     eq("=", 3, false, (Integer op1, Integer op2) -> op1.equals(op2)),
     ne("!=", 3, false, (Integer op1, Integer op2) -> !op1.equals(op2)),
     right_bracket(")", 0, false, (op1, op2) -> {
-        throw new InvalidStateException("Invalid operation");
+        throw new IllegalStateException("Invalid operation");
     }),
     left_bracket("(", 0, false, (op1, op2) -> {
-        throw new InvalidStateException("Invalid operation");
+        throw new IllegalStateException("Invalid operation");
     });
 
     private int precedence;
